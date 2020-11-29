@@ -1,0 +1,19 @@
+Package: optionpricing
+Type: Package
+Title: Option pricing via PDEs and PIDEs
+Version: 0.1.0
+Author: S. Hill
+Maintainer: S. Hill <52792611+shill1729@users.noreply.github.com>
+Description: Price options analytically or numerically via exact formulas,
+    PDE/PIDE solvers, and Monte-Carlo routines. Models include Black-Scholes,
+    Merton and Kou jump diffusion, volatility mixtures, and some pure-jump models.
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.1
+LinkingTo: 
+    Rcpp
+Imports:
+    findistr,
+    kellyfractions,
+    Rcpp
