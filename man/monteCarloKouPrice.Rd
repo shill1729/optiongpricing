@@ -7,22 +7,34 @@
 monteCarloKouPrice(
   strike,
   maturity,
-  spot,
-  parameters,
   type = "call",
+  spot,
+  rate,
+  div,
+  volat,
+  lambda,
+  parameters,
   n = 20000
 )
 }
 \arguments{
-\item{strike}{the strike sprice}
+\item{strike}{the strike price}
 
 \item{maturity}{the maturity of the option contract}
 
+\item{type}{the payoff to use}
+
 \item{spot}{the spot price}
 
-\item{parameters}{vector of model parameters}
+\item{rate}{the risk-neutral rate of return}
 
-\item{type}{the payoff to use}
+\item{div}{the continuous dividend yield}
+
+\item{volat}{the volatility level}
+
+\item{lambda}{the mean number of jumps per annum}
+
+\item{parameters}{vector of model parameters}
 
 \item{n}{number of variates to sample}
 }

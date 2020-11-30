@@ -3,18 +3,19 @@
 #include "Payoffs.h"
 #include "ProblemProcessor.h"
 
-Rcpp::NumericMatrix cpoisSolver(bool american, Rcpp::NumericVector payoff, std::vector<int> res, double r, double a, double b, double h, double k)
+Rcpp::NumericMatrix implicitSolver(bool american, Rcpp::NumericVector payoff, std::vector<int> res, double r, double q, double v, double h, double k)
 {
   int N = res[0];
   int M = res[1];
-  double lambda = (r+b)/(std::exp(a)-1);
   Rcpp::NumericMatrix u(N + 1, M + 1);
   //u = u.Zero(N + 1, M + 1);
-  u = ProblemProcessor::initial_cond(u, payoff, res);
+  u = ProblemProcessor::initial_cond(u, payoff);
   u = ProblemProcessor::boundary_cond(u, payoff, res);
-  double alpha = -(a*lambda-b)/(2*h);
-  double beta = -r;
-  double delta = -alpha;
+  double a = (r - q - 0.5 * v * v) / (2 * h);
+  double b = (v * v) / (2 * h * h);
+  double alpha = b - a;
+  double beta = -r - 2 * b;
+  double delta = a + b;
   for (int i = 1; i < N + 1; i++)
   {
     // RHS of tridiagonal system
@@ -33,39 +34,37 @@ Rcpp::NumericMatrix cpoisSolver(bool american, Rcpp::NumericVector payoff, std::
 }
 
 // [[Rcpp::export]]
-Rcpp::NumericMatrix cpoisScheme(double strike, double maturity, std::string type, double spot, double r, double a, double b, std::vector<int> res, bool american = true)
+Rcpp::NumericMatrix implicitScheme(double strike, double maturity, std::string type, double spot, double r, double q, double v, std::vector<int> res, bool american = true)
 {
   int N = res[0];
   int M = res[1];
-  double lambda = (r+b)/(std::exp(a)-1);
-  double B = maturity*lambda*a-b*maturity;
+  double B = 0.5*v*M*std::sqrt(3*maturity/N);
   double h = (2*B)/M;
   double k = (maturity/N);
-
   Rcpp::NumericVector x = ProblemProcessor::discretize(-B, B, M);
   Rcpp::NumericVector payoff = Payoffs::computePayoff(type, strike, spot, x, res);
-  Rcpp::NumericMatrix u = cpoisSolver(american, payoff, res, r, a, b, h, k);
+  Rcpp::NumericMatrix u = implicitSolver(american, payoff, res, r, q, v, h, k);
   return u;
 }
 
-//' Price options via Compensated Poisson PDE
+//' Price options via Black-Scholes PDE
 //' @param strike the strike price of the option contract
 //' @param maturity the time until maturity
 //' @param type either "put" or "call
 //' @param spot the spot price
 //' @param r the risk free rate
-//' @param a coefficient of the Poisson process
-//' @param b coefficient of the compensating drift
+//' @param q the continuous dividend yield
+//' @param v the volatiltiy
 //' @param res the grid resolution
 //' @param american bool for american options
 //'
 //' @description {Compute European/American options via a finite difference solver for the
-//' PDE for compensated Poisson log-returns.}
+//' Black-Scholes PDE.}
 //' @return numeric
-//' @export cpoisPDE
+//' @export blackScholesPDE
 // [[Rcpp::export]]
-double cpoisPDE(double strike, double maturity, std::string type, double spot, double r, double a, double b, std::vector<int> res, bool american = true)
+double blackScholesPDE(double strike, double maturity, std::string type, double spot, double r, double q, double v, std::vector<int> res, bool american = true)
 {
-  Rcpp::NumericMatrix u = cpoisScheme(strike, maturity, type, spot, r, a, b, res, american);
+  Rcpp::NumericMatrix u = implicitScheme(strike, maturity, type, spot, r, q, v, res, american);
   return u(res[0], res[1]/2);
 }

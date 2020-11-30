@@ -47,3 +47,29 @@ cpoisPDE <- function(strike, maturity, type, spot, r, a, b, res, american = TRUE
     .Call(`_optionpricing_cpoisPDE`, strike, maturity, type, spot, r, a, b, res, american)
 }
 
+imexScheme <- function(strike, maturity, type, spot, r, q, v, lambda, jumpDistr, jumpParam, res, american = TRUE) {
+    .Call(`_optionpricing_imexScheme`, strike, maturity, type, spot, r, q, v, lambda, jumpDistr, jumpParam, res, american)
+}
+
+#' Price options via Black-Scholes PDE
+#' @param strike the strike price of the option contract
+#' @param maturity the time until maturity
+#' @param type either "put" or "call
+#' @param spot the spot price
+#' @param r the risk free rate
+#' @param q the continuous dividend yield
+#' @param v the volatiltiy
+#' @param lambda the mean number of jumps annually
+#' @param jumpDistr name of jump-size distribution: "norm", "kou" or "dkou"
+#' @param jumpParam vector of jump parameters, see details
+#' @param res the time-space resolution
+#' @param american bool for american options
+#'
+#' @description {Compute European/American options via a finite difference solver for the
+#' jump diffusion PIDE.}
+#' @return numeric
+#' @export pricerPIDE
+pricerPIDE <- function(strike, maturity, type, spot, r, q, v, lambda, jumpDistr, jumpParam, res, american = TRUE) {
+    .Call(`_optionpricing_pricerPIDE`, strike, maturity, type, spot, r, q, v, lambda, jumpDistr, jumpParam, res, american)
+}
+

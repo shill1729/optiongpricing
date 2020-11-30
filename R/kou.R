@@ -1,25 +1,30 @@
 #' Comptue a conditional expectation via Monte-Carlo simulation/averaging
 #'
-#' @param spot the spot price
-#' @param strike the strike sprice
+
+#' @param strike the strike price
 #' @param maturity the maturity of the option contract
-#' @param parameters vector of model parameters
 #' @param type the payoff to use
+#' @param spot the spot price
+#' @param rate the risk-neutral rate of return
+#' @param div the continuous dividend yield
+#' @param volat the volatility level
+#' @param lambda the mean number of jumps per annum
+#' @param parameters vector of model parameters
 #' @param n number of variates to sample
 #'
 #' @description {Compute a conditional expectation via discounting and averaging}
 #' @export monteCarloKouPrice
-monteCarloKouPrice <- function(strike, maturity, spot, parameters, type = "call", n = 20000)
+monteCarloKouPrice <- function(strike, maturity, type = "call", spot, rate, div, volat, lambda, parameters, n = 20000)
 {
-  rate <- parameters[1]
-  div <- parameters[2]
-  volat <- parameters[3]
-  lambda <- parameters[4]
-  prob <- parameters[5]
-  alpha <- parameters[6]
-  beta <- parameters[7]
-  ku <- parameters[8]
-  kd <- parameters[9]
+  # rate <- parameters[1]
+  # div <- parameters[2]
+  # volat <- parameters[3]
+  # lambda <- parameters[4]
+  prob <- parameters[1]
+  alpha <- parameters[2]
+  beta <- parameters[3]
+  ku <- parameters[4]
+  kd <- parameters[5]
 
   eta <- kellyfractions:::mgfdkou(1, prob, alpha, beta, ku, kd)-1
   variates <- matrix(0, nrow = n)

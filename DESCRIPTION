@@ -12,8 +12,10 @@ Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.1
 LinkingTo: 
-    Rcpp
+    Rcpp,
+    RcppEigen
 Imports:
     findistr,
     kellyfractions,
-    Rcpp
+    Rcpp,
+    RcppEigen
