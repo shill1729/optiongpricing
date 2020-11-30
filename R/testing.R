@@ -119,7 +119,7 @@ testKouEuro <- function(strike, maturity, type, spot, rate, div, volat, lambda, 
   prices <- matrix(0, 2)
   # prices[1] <- analyticMertonPrice(strike, maturity, type, spot, rate, div, volat, lambda, jm, jv)
   prices[1] <- monteCarloKouPrice(strike, maturity, type, spot, rate, div, volat, lambda, c(p, alpha, beta, 0, 0))
-  prices[2] <- pricerPIDE(strike, maturity, type, spot, rate, div, volat, "kou", c(p, alpha, beta), c(N, M), FALSE)
+  prices[2] <- pricerPIDE(strike, maturity, type, spot, rate, div, volat, lambda, "kou", c(p, alpha, beta), c(N, M), FALSE)
   absErrors <- abs(prices-prices[1])
   relErrors <- absErrors/prices[1]
   perErrors <- relErrors*100
@@ -156,7 +156,7 @@ testDisplacedKouEuro <- function(strike, maturity, type, spot, rate, div, volat,
   prices <- matrix(0, 2)
   # prices[1] <- analyticMertonPrice(strike, maturity, type, spot, rate, div, volat, lambda, jm, jv)
   prices[1] <- monteCarloKouPrice(strike, maturity, type, spot, rate, div, volat, lambda, c(p, alpha, beta, ku, kd))
-  prices[2] <- pricerPIDE(strike, maturity, type, spot, rate, div, volat, "dkou", c(p, alpha, beta, ku, kd), c(N, M), FALSE)
+  prices[2] <- pricerPIDE(strike, maturity, type, spot, rate, div, volat, lambda, "dkou", c(p, alpha, beta, ku, kd), c(N, M), FALSE)
   absErrors <- abs(prices-prices[1])
   relErrors <- absErrors/prices[1]
   perErrors <- relErrors*100

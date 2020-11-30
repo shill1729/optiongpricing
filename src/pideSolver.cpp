@@ -76,7 +76,7 @@ Rcpp::NumericMatrix imexScheme(double strike, double maturity, std::string type,
 //' Price options via Black-Scholes PDE
 //' @param strike the strike price of the option contract
 //' @param maturity the time until maturity
-//' @param type either "put" or "call
+//' @param type either "put" or "call"
 //' @param spot the spot price
 //' @param r the risk free rate
 //' @param q the continuous dividend yield
@@ -94,8 +94,10 @@ Rcpp::NumericMatrix imexScheme(double strike, double maturity, std::string type,
 // [[Rcpp::export]]
 double pricerPIDE(double strike, double maturity, std::string type, double spot, double r, double q, double v, double lambda, std::string jumpDistr, Rcpp::NumericVector jumpParam, std::vector<int> res, bool american = true)
 {
-  int L = res[1]/2+1;
-  int m = res[1]+1+2*L;
+
+  int M = res[1];
+  int L = M/2+1;
+  int m = M+1+2*L;
   int sj = round(m/2);
 
   Rcpp::NumericMatrix u = imexScheme(strike, maturity, type, spot, r, q, v, lambda, jumpDistr, jumpParam, res, american);

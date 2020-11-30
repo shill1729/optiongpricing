@@ -13,12 +13,12 @@ double Payoffs::call(double K, double S)
 
 Rcpp::NumericVector Payoffs::computePayoff(std::string type, double strike, double spot, Rcpp::NumericVector x, std::vector<int> res)
 {
-  Rcpp::NumericVector payoff(res[1] + 1);
-  for (int i = 0; i < res[0]+1; i++)
+  Rcpp::NumericVector payoff(x.length());
+  for (int i = 0; i < x.length(); i++)
   {
     if (type == "put")
     {
-      payoff[i] = put(strike, spot*std::exp(x[i]));
+      payoff[i] = Payoffs::put(strike, spot*std::exp(x[i]));
     }
     else if (type == "call")
     {

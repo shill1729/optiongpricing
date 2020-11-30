@@ -9,7 +9,7 @@ generally with three methods available per model: analytic (when available), Mon
 
 ## Continuous diffusions
 - [x] Black-Scholes (geometric Brownian motion)
-- [x] Brigo-Mercurio volatility mixture 
+- [] Brigo-Mercurio volatility mixture 
 ## Jump-diffusions
 - [x] Merton's jump diffusion (GBM + compound Poisson of log-normal jumps)
 - [x] Kou's jump diffusion (GBM + compound Poisson of exponential-mixture jumps)

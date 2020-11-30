@@ -54,7 +54,7 @@ imexScheme <- function(strike, maturity, type, spot, r, q, v, lambda, jumpDistr,
 #' Price options via Black-Scholes PDE
 #' @param strike the strike price of the option contract
 #' @param maturity the time until maturity
-#' @param type either "put" or "call
+#' @param type either "put" or "call"
 #' @param spot the spot price
 #' @param r the risk free rate
 #' @param q the continuous dividend yield

@@ -24,7 +24,7 @@ pricerPIDE(
 
 \item{maturity}{the time until maturity}
 
-\item{type}{either "put" or "call}
+\item{type}{either "put" or "call"}
 
 \item{spot}{the spot price}
 

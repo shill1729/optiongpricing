@@ -119,3 +119,4 @@ Eigen::VectorXd ProblemProcessor::populate_jump_pdf(int L, double h, std::string
   jump_size_pdf[2 * L] = 0.5 * jump_size_pdf[2 * L];
   return jump_size_pdf;
 }
+
