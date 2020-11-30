@@ -11,7 +11,8 @@
 #' @description {Call to base r \code{uniroot} to backout the implied rate of an option given
 #'  all other parameters of the Black-Scholes model.}
 #' @return numeric
-impliedRate1 <- function(fee, strike, maturity, type, spot, volat)
+#' @export impliedRate
+impliedRate <- function(fee, strike, maturity, type, spot, volat)
 {
   f <- function(r)
   {
