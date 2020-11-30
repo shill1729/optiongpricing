@@ -68,3 +68,58 @@ double blackScholesPDE(double strike, double maturity, std::string type, double 
   Rcpp::NumericMatrix u = implicitScheme(strike, maturity, type, spot, r, q, v, res, american);
   return u(res[0], res[1]/2);
 }
+
+//' Compute price and greeks of European and American options via Black-Scholes PDE
+//' @param strike the strike price of the option contract
+//' @param maturity the time until maturity
+//' @param type either "put" or "call
+//' @param spot the spot price
+//' @param r the risk free rate
+//' @param q the continuous dividend yield
+//' @param v the volatiltiy
+//' @param res the grid resolution
+//' @param american bool for american options
+//'
+//' @description {Compute European/American options via a finite difference solver for the
+//' Black-Scholes PDE.}
+//' @return numeric
+//' @export blackScholesGreeksPDE
+// [[Rcpp::export]]
+Rcpp::NumericVector blackScholesGreeksPDE(double strike, double maturity, std::string type, double spot, double r, double q, double v, std::vector<int> res, bool american = true)
+{
+  Rcpp::NumericVector gks(5);
+  Rcpp::NumericMatrix u = implicitScheme(strike, maturity, type, spot, r, q, v, res, american);
+  int N = res[0];
+  int M = res[1];
+  double B = 0.5*v*M*std::sqrt(3.0*maturity/N);
+  double h = 2.0*B/M;
+  double k = maturity/N;
+  int i = M / 2;
+  double Fee = u(N, i);
+  double Delta = (u(N, i + 1) - u(N, i - 1)) / (2 * h);
+  double Gamma = (u(N, i + 1) - 2 * u(N, i) + u(N, i - 1)) / (std::pow(h, 2));
+  double Theta = (u(N - 1, i) - u(N, i)) / k;
+  Theta = Theta / 360.0;
+  gks[0] = strike;
+  gks[1] = Fee;
+  gks[2] = Delta / spot;
+  gks[3] = (Gamma - Delta) / std::pow(spot, 2);
+  gks[4] = Theta;
+  return gks;
+
+}
+
+// Rcpp::NumericMatrix bsGreeks(Rcpp::NumericVector strikes, double maturity, std::string type, double spot, double r, double q, double v, std::vector<int> res, bool american)
+// {
+//   Rcpp::NumericMatrix u(strikes.size(), 5);
+//   for(int i = 0; i < (int)strikes.size(); i++)
+//   {
+//     Rcpp::NumericVector gks = blackScholesGreeksPDE(strikes[i], maturity, type, spot, r, q, v, res, american);
+//     for(int j = 0; j < 5; j++)
+//     {
+//       u(i, j) = gks[j];
+//     }
+//   }
+//   return u;
+// }
+

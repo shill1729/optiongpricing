@@ -44,6 +44,25 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// blackScholesGreeksPDE
+Rcpp::NumericVector blackScholesGreeksPDE(double strike, double maturity, std::string type, double spot, double r, double q, double v, std::vector<int> res, bool american);
+RcppExport SEXP _optionpricing_blackScholesGreeksPDE(SEXP strikeSEXP, SEXP maturitySEXP, SEXP typeSEXP, SEXP spotSEXP, SEXP rSEXP, SEXP qSEXP, SEXP vSEXP, SEXP resSEXP, SEXP americanSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< double >::type strike(strikeSEXP);
+    Rcpp::traits::input_parameter< double >::type maturity(maturitySEXP);
+    Rcpp::traits::input_parameter< std::string >::type type(typeSEXP);
+    Rcpp::traits::input_parameter< double >::type spot(spotSEXP);
+    Rcpp::traits::input_parameter< double >::type r(rSEXP);
+    Rcpp::traits::input_parameter< double >::type q(qSEXP);
+    Rcpp::traits::input_parameter< double >::type v(vSEXP);
+    Rcpp::traits::input_parameter< std::vector<int> >::type res(resSEXP);
+    Rcpp::traits::input_parameter< bool >::type american(americanSEXP);
+    rcpp_result_gen = Rcpp::wrap(blackScholesGreeksPDE(strike, maturity, type, spot, r, q, v, res, american));
+    return rcpp_result_gen;
+END_RCPP
+}
 // cpoisScheme
 Rcpp::NumericMatrix cpoisScheme(double strike, double maturity, std::string type, double spot, double r, double a, double b, std::vector<int> res, bool american);
 RcppExport SEXP _optionpricing_cpoisScheme(SEXP strikeSEXP, SEXP maturitySEXP, SEXP typeSEXP, SEXP spotSEXP, SEXP rSEXP, SEXP aSEXP, SEXP bSEXP, SEXP resSEXP, SEXP americanSEXP) {
@@ -130,6 +149,7 @@ END_RCPP
 static const R_CallMethodDef CallEntries[] = {
     {"_optionpricing_implicitScheme", (DL_FUNC) &_optionpricing_implicitScheme, 9},
     {"_optionpricing_blackScholesPDE", (DL_FUNC) &_optionpricing_blackScholesPDE, 9},
+    {"_optionpricing_blackScholesGreeksPDE", (DL_FUNC) &_optionpricing_blackScholesGreeksPDE, 9},
     {"_optionpricing_cpoisScheme", (DL_FUNC) &_optionpricing_cpoisScheme, 9},
     {"_optionpricing_cpoisPDE", (DL_FUNC) &_optionpricing_cpoisPDE, 9},
     {"_optionpricing_imexScheme", (DL_FUNC) &_optionpricing_imexScheme, 12},

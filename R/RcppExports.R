@@ -24,6 +24,25 @@ blackScholesPDE <- function(strike, maturity, type, spot, r, q, v, res, american
     .Call(`_optionpricing_blackScholesPDE`, strike, maturity, type, spot, r, q, v, res, american)
 }
 
+#' Compute price and greeks of European and American options via Black-Scholes PDE
+#' @param strike the strike price of the option contract
+#' @param maturity the time until maturity
+#' @param type either "put" or "call
+#' @param spot the spot price
+#' @param r the risk free rate
+#' @param q the continuous dividend yield
+#' @param v the volatiltiy
+#' @param res the grid resolution
+#' @param american bool for american options
+#'
+#' @description {Compute European/American options via a finite difference solver for the
+#' Black-Scholes PDE.}
+#' @return numeric
+#' @export blackScholesGreeksPDE
+blackScholesGreeksPDE <- function(strike, maturity, type, spot, r, q, v, res, american = TRUE) {
+    .Call(`_optionpricing_blackScholesGreeksPDE`, strike, maturity, type, spot, r, q, v, res, american)
+}
+
 cpoisScheme <- function(strike, maturity, type, spot, r, a, b, res, american = TRUE) {
     .Call(`_optionpricing_cpoisScheme`, strike, maturity, type, spot, r, a, b, res, american)
 }
