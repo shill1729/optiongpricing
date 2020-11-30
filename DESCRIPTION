@@ -19,3 +19,4 @@ Imports:
     kellyfractions,
     Rcpp,
     RcppEigen
+SystemRequirements: C++11
