@@ -11,7 +11,7 @@
 #' @param div the continuous dividend yield rate
 #' @param volat the volatility level
 #'
-#' @description {European option pricing via exact formulas under Levy-Poisson model dynamics for
+#' @description {European option pricing via exact formulas under the Black-Scholes model dynamics for
 #' vanilla options like calls and puts.}
 #' @return numeric
 #' @export analyticBlackScholesPrice

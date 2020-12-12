@@ -97,13 +97,13 @@ Rcpp::NumericVector blackScholesGreeksPDE(double strike, double maturity, std::s
   int i = M / 2;
   double Fee = u(N, i);
   double Delta = (u(N, i + 1) - u(N, i - 1)) / (2 * h);
-  double Gamma = (u(N, i + 1) - 2 * u(N, i) + u(N, i - 1)) / (std::pow(h, 2));
+  double Gamma = (u(N, i + 1) - 2 * u(N, i) + u(N, i - 1)) / (h*h);
   double Theta = (u(N - 1, i) - u(N, i)) / k;
   Theta = Theta / 360.0;
   gks[0] = strike;
   gks[1] = Fee;
   gks[2] = Delta / spot;
-  gks[3] = (Gamma - Delta) / std::pow(spot, 2);
+  gks[3] = (Gamma - Delta) / (spot*spot);
   gks[4] = Theta;
   return gks;
 

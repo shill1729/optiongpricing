@@ -7,7 +7,7 @@ Rcpp::NumericMatrix cpoisSolver(bool american, Rcpp::NumericVector payoff, std::
 {
   int N = res[0];
   int M = res[1];
-  double lambda = (r+b)/(std::exp(a)-1);
+  double lambda = (r+b)/(std::exp(a)-1.0);
   Rcpp::NumericMatrix u(N + 1, M + 1);
   //u = u.Zero(N + 1, M + 1);
   u = ProblemProcessor::initial_cond(u, payoff);
@@ -37,9 +37,9 @@ Rcpp::NumericMatrix cpoisScheme(double strike, double maturity, std::string type
 {
   int N = res[0];
   int M = res[1];
-  double lambda = (r+b)/(std::exp(a)-1);
+  double lambda = (r+b)/(std::exp(a)-1.0);
   double B = maturity*lambda*a-b*maturity;
-  double h = (2*B)/M;
+  double h = (2.0*B)/M;
   double k = (maturity/N);
 
   Rcpp::NumericVector x = ProblemProcessor::discretize(-B, B, M);

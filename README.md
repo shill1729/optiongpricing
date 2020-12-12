@@ -5,7 +5,7 @@
 <!-- badges: end -->
 
 This package provides option pricers for a variety of models of price dynamics 
-generally with three methods available per model: analytic (when available), Monte-Carlo, and via PDE-solvers. The models are divided into the following categories:
+generally with three methods available per model: analytic (when available), Monte-Carlo, and via P(I)DE-solvers. The models are divided into the following categories:
 
 ## Continuous diffusions
 - [x] Black-Scholes (geometric Brownian motion)
@@ -15,7 +15,7 @@ generally with three methods available per model: analytic (when available), Mon
 - [x] Kou's jump diffusion (GBM + compound Poisson of exponential-mixture jumps)
 ## Pure jump processes
 - [x] geometric linear Poisson dynamics
-- [x] geometric compsenated compound Poisson dynamics
+- [ ] geometric compsenated compound Poisson dynamics
 
 ## Installation
 

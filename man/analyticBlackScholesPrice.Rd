@@ -25,6 +25,6 @@ analyticBlackScholesPrice(strike, maturity, type, spot, rate, div, volat)
 numeric
 }
 \description{
-{European option pricing via exact formulas under Levy-Poisson model dynamics for
+{European option pricing via exact formulas under the Black-Scholes model dynamics for
 vanilla options like calls and puts.}
 }

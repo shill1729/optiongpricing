@@ -19,7 +19,7 @@ impliedRate <- function(fee, strike, maturity, type, spot, volat)
     optionpricing::blackScholesPDE(strike, maturity, type, spot, r, 0, volat, res = c(400, 400), american = TRUE)-fee
   }
 
-  z <- uniroot(f, c(-100, 100))
+  z <- stats::uniroot(f, c(-100, 100))
   return(z$root)
 }
 
@@ -44,7 +44,6 @@ impliedVolatility <- function(fee, strike, maturity, type, spot, rate)
     optionpricing::blackScholesPDE(strike, maturity, type, spot, rate, 0, v, res = c(400, 400), american = TRUE)-fee
   }
 
-  z <- uniroot(f, c(0.01, 5))
+  z <- stats::uniroot(f, c(0.01, 5))
   return(z$root)
 }
-
